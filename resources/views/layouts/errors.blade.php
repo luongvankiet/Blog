@@ -26,3 +26,11 @@
 		</div>
 	</div>
 @endif
+
+@if(Session::has('error'))
+	<div class="form-group">
+		<div class="alert alert-success">
+			<strong>Error: </strong>{{Session::get('error')}}
+		</div>
+	</div>
+@endif

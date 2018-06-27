@@ -12,37 +12,28 @@
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Date Created</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Roles</th>
+      <th scope="col">Active</th>
     </tr>
   </thead>
   <tbody>
-  	@foreach($users as $u)
-    <tr>
+  	@foreach($user as $u)
+    <tr onclick="window.location='{{route('users.edit', ['id'=>$u->id])}}'" style="cursor: pointer;">
       <th scope="row">{{$u->id}}</th>
       <td>{{$u->name}}</td>
       <td>{{$u->email}}</td>
       <td>{{$u->created_at->toFormattedDateString()}}</td>
-      <td>
-          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-              <button class="btn " onclick="window.location='{{route('users.show',['id'=>$u->id])}}'"><span class="fas fa-user-circle"></span></button>              
-            </div>
-            <div class="btn-group mr-2" role="group" aria-label="Second group">
-              <button class="btn" onclick="window.location='{{route('users.edit',['id'=>$u->id])}}'"><span class="fas fa-pencil-alt"></span></button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Third group">
-              <form method="POST" action="{{route('users.destroy',['id'=>$u->id])}}">
-              {{method_field('DELETE')}}
-              @csrf
-              <button class="btn" type="submit"><span class="fas fa-trash-alt"></span></button>
-              </form>
-            </div>
-          </div>
-      </td>
+      @if($u->roles->count() != 0)
+        @foreach($u->roles as $roles)
+        <td>{{$roles->display_name}}</td>
+        @endforeach
+      @else
+        <td><p>This user has no role</p></td>
+      @endif
+      <td style="padding-left: 30px;"><span class="{{($u->active == 1) ? 'far fa-check-square' : 'far fa-square'}}"></span></td>
     </tr>
     @endforeach
   </tbody>
 </table>
-<div class="mx-auto">{{$users->links()}}</div>
-    
+<div class="mx-auto">{{$user->links()}}</div>
 @endsection

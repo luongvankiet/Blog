@@ -1,0 +1,18 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class PostsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        factory(App\Post::class, 15)->create()->each(function($u) {
+		   $u->images()->save(factory(App\Image::class)->make());
+		});	
+    }
+}

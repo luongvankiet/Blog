@@ -16,40 +16,18 @@
                   <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
                 </div>
                 <!-- Logo -->
-                <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('img/core-img/logo.png')}}" alt="Logo"></a>
+                <a class="navbar-brand" href="{{route('posts.index')}}"><img src="{{asset('img/core-img/logo.png')}}" alt="Logo"></a>
                 <!-- Navbar Toggler -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#worldNav" aria-controls="worldNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <!-- Navbar -->
                 <div class="collapse navbar-collapse" id="worldNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Pages
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="index.html">Home</a>
-                                <a class="dropdown-item" href="catagory.html">Catagory</a>
-                                <a class="dropdown-item" href="single-blog.html">Single Blog</a>
-                                <a class="dropdown-item" href="regular-page.html">Regular Page</a>
-                                <a class="dropdown-item" href="contact.html">Contact</a>
-                            </div>
+                            <a class="nav-link" href="{{route('posts.index')}}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('manage.dashboard')}}">Manage</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Lifestyle</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Video</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('register')}}">Contact</a>
-                        </li>
-
                         
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

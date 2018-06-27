@@ -2,6 +2,7 @@
 @section('manage')
 <h1>Edit user</h1>
 @include('layouts.errors')
+<hr>
 <form  method="POST" action="{{route('users.update',['id'=>$user->id])}}">
     {{method_field('PUT')}}
     @csrf
@@ -14,9 +15,22 @@
         <label for="email">Email <span class="require">*</span></label>
         <input type="email" class="form-control" name="email" value="{{$user->email}}"/>
     </div>
+
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Edit</button>
-        <button class="btn btn-default" type="button" onclick="window.location='{{url()->previous()}}'">Cancel</button>
+        <label class="radio">
+            <input type="radio" name="status[]" value="true" {{($user->active == 1) ? 'checked' : ''}}/> Activate
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="radio">
+            <input type="radio" name="status[]" value="false" {{($user->active == 0) ? 'checked' : ''}}/> Deactivate
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-default" type="button" onclick="window.location='{{route('users.index')}}'">Cancel</button>
     </div>
 </form>
 @endsection

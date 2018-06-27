@@ -1,9 +1,9 @@
 <!-- Preloader Start -->
-<div id="preloader">
+<!-- <div id="preloader">
     <div class="preload-content">
         <div id="world-load"></div>
     </div>
-</div>
+</div> -->
 <!-- Preloader End -->
 <!-- ***** Header Area Start ***** -->
 <header class="header-area sticky">
@@ -12,39 +12,35 @@
             <div class="col-12">
                 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
                     <!-- Logo -->
-                    <a class="navbar-brand" href="{{route('home')}}"><img src="img/core-img/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="{{route('posts.index')}}"><img src="{{asset('img/core-img/logo2.png')}}" alt="Logo" width="150px" height="55px"></a>
                     <!-- Navbar Toggler -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#worldNav" aria-controls="worldNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <!-- Navbar -->
                     <div class="collapse navbar-collapse" id="worldNav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{route('posts.index')}}">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Pages
+                                  Categories
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="index.html">Home</a>
-                                    <a class="dropdown-item" href="catagory.html">Catagory</a>
-                                    <a class="dropdown-item" href="single-blog.html">Single Blog</a>
-                                    <a class="dropdown-item" href="regular-page.html">Regular Page</a>
-                                    <a class="dropdown-item" href="contact.html">Contact</a>
+                                    @foreach($categories_navbar as $category)
+                                        <a class="dropdown-item" href="{{route('posts.category', ['slug'=>$category->category_slug, 'id'=>$category->id])}}">{{$category->category_name}}</a>
+                                    @endforeach
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('manage.dashboard')}}">Manage</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Lifestyle</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Video</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('register')}}">Contact</a>
-                            </li>
+                            @guest
+                            @else
+                                @foreach(Auth::user()->roles as $role)
+                                    @if($role->name == 'admin')
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{route('manage.dashboard')}}">Manage</a>
+                                    </li>
+                                    @endif
+                                @endforeach
+                            @endguest
 
                             @guest
                             <!-- login nav -->
@@ -76,7 +72,6 @@
                                                         <small id="passwordHelpInline" class="text-muted">
                                                           Must be more than 6 characters long.
                                                         </small>
-                                                        <div class="help-block text-right"><a href="">Forget the password ?</a></div>
                                                         @if ($errors->has('password'))
                                                             <span class="invalid-feedback">
                                                                 <strong>{{ $errors->first('password') }}</strong>
@@ -86,9 +81,9 @@
                                                     <div class="form-group">
                                                         <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                                                     </div>
-                                                    <div class="checkbox">
+                                                    <div class="form-group">
                                                         <label>
-                                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>Remember me
+                                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember me
                                                         </label>
                                                     </div>
                                                 </form>
@@ -163,6 +158,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('profile', ['email'=>Auth::user()->id])}}">
+                                        {{ __('Profile') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{route('posts.create')}}">
+                                        {{ __('Create post') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -178,8 +179,8 @@
                         </ul>
                         <!-- Search Form  -->
                         <div id="search-wrapper">
-                            <form action="#">
-                                <input type="text" id="search" placeholder="Search something...">
+                            <form action="{{route('search')}}" method="GET">
+                                <input type="text" id="search" placeholder="Search something..." name="search">
                                 <div id="close-icon"></div>
                                 <input class="d-none" type="submit" value="">
                             </form>

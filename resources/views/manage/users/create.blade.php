@@ -2,6 +2,7 @@
 @section('manage')
 <h1>Create new user</h1>
 @include('layouts.errors')
+<hr>
 <form  method="POST" action="{{route('users.store')}}">
     @csrf
     <div class="form-group">
