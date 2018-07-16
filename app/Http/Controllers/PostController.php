@@ -25,7 +25,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $categories = Category::paginate(5);
+        $categories = Category::with('posts')->paginate(5);
         $posts = Post::where('active', 1)->with('users')->get();
         return view('posts.index', compact('categories', 'posts'));
     }
@@ -53,44 +53,46 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->validate($request,[
-            'title' => 'required|max:255',
-            'content' => 'required',
-        ]);
-
         $user_id = Auth::user()->id;
         $post = new Post;
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->slug = str_slug($request->title,'-');
-        $post->user_id = $user_id;
-        $post->category_id = $request->category;
-        $post->save(); 
-
-        if(!$request->file('thumbnail') == null)
+        if($post->validate($request->all()))
         {
-            $image = new Image();
-            $get_image = $request->file('thumbnail');
-            $name = time().'.'.$get_image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $get_image->move($destinationPath, $name);
-            $image->image = $name;
-            $image->user_id = $user_id;
-            $image->post_id = $post->id;
-            $image->save();
+            $post->title = $request->title;
+            $post->content = $request->content;
+            $post->slug = str_slug($request->title,'-');
+            $post->user_id = $user_id;
+            $post->category_id = $request->category;
+            $post->save(); 
+
+            if(!$request->file('thumbnail') == null)
+            {
+                $image = new Image();
+                $get_image = $request->file('thumbnail');
+                $name = time().'.'.$get_image->getClientOriginalExtension();
+                $destinationPath = public_path('/images');
+                $get_image->move($destinationPath, $name);
+                $image->image = $name;
+                $image->user_id = $user_id;
+                $image->post_id = $post->id;
+                $image->save();
+            }
+            else
+            {
+                
+                Session::flash('success', 'The post was successfully saved.!');
+                return redirect()->route('posts.show',['slug'=>$post->slug, 'id'=>$post->id]);
+            }
+
+
+            Session::flash('success', 'The post was successfully saved.!');
+
+            return redirect()->route('posts.show',['slug'=>$post->slug, 'id'=>$post->id]);
         }
         else
         {
-            
-            Session::flash('success', 'The post was successfully saved.!');
-            return redirect()->route('posts.show',['slug'=>$post->slug, 'id'=>$post->id]);
+            $errors = $post->errors();
+            return redirect()->back()->with('errors',$errors)->withInput();
         }
-
-
-        Session::flash('success', 'The post was successfully saved.!');
-
-        return redirect()->route('posts.show',['slug'=>$post->slug, 'id'=>$post->id]);
     }
 
     /**
@@ -146,40 +148,43 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'title' => 'required|max:255',
-            'content' => 'required',
-        ]);
-
         $post = Post::findOrFail($id);
-        $post->title = $request->title;
-        $post->slug = str_slug($request->title, '-');
-        $post->content = $request->content;
-        $post->category_id = $request->category;
-        $post->save(); 
-
-        if(!$request->file('thumbnail') == null)
+        if($post->validate($request->all()))
         {
-            $image = Image::where('post_id', $id)->first();
-            
-            $get_image = $request->file('thumbnail');
-            $name = time().'.'.$get_image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $get_image->move($destinationPath, $name);
-            $image->image = $name;
-            $image->save();
+            $post->title = $request->title;
+            $post->slug = str_slug($request->title, '-');
+            $post->content = $request->content;
+            $post->category_id = $request->category;
+            $post->save(); 
+
+            if(!$request->file('thumbnail') == null)
+            {
+                $image = Image::where('post_id', $id)->first();
+                
+                $get_image = $request->file('thumbnail');
+                $name = time().'.'.$get_image->getClientOriginalExtension();
+                $destinationPath = public_path('/images');
+                $get_image->move($destinationPath, $name);
+                $image->image = $name;
+                $image->save();
+            }
+            else
+            {
+                
+                Session::flash('success', 'The post was successfully saved.!');
+                return redirect()->route('posts.show',['slug'=>$post->slug, 'id'=>$post->id]);
+            }
+
+
+            Session::flash('success', 'The post was successfully saved.!');
+
+            return redirect()->route('posts.show',['slug'=>$post->slug, 'id'=>$post->id]);
         }
         else
         {
-            
-            Session::flash('success', 'The post was successfully saved.!');
-            return redirect()->route('posts.show',['slug'=>$post->slug, 'id'=>$post->id]);
+            $errors = $post->errors();
+            return redirect()->back()->with('errors', $errors)->withInput();
         }
-
-
-        Session::flash('success', 'The post was successfully saved.!');
-
-        return redirect()->route('posts.show',['slug'=>$post->slug, 'id'=>$post->id]);
     }
 
     /**

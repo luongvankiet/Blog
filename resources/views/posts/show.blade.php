@@ -35,7 +35,7 @@
                   @endif
             </div>
             <!-- Post Content -->
-            <div class="post-content">
+            <div class="post-content text-justify" >
                 <h6>{!!$post->content!!}</h6>
                 
                 <!-- Post Meta -->

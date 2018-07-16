@@ -43,14 +43,7 @@
     <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
     <script src='https://use.fontawesome.com/2188c74ac9.js'></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script> CKEDITOR.replace( 'editor1', {
-        filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
-        filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Images') }}',
-        filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Flash') }}',
-        filebrowserUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
-        filebrowserImageUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
-        filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
-        });
+    <script> CKEDITOR.replace( 'editor1');
     </script>
 
 </body>

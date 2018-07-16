@@ -31,7 +31,7 @@ class HomeController extends Controller
         $categories = Category::where(['category_slug'=> $slug, 'id'=>$id])->paginate(5);
         $posts = Post::where('active', 1)->whereHas('categories', function($q) use ($slug, $id){
             $q->where(['category_slug'=>$slug, 'id'=>$id]);
-        });
+        })->get();
         
         return view('posts.index', compact('posts', 'categories'));
 
@@ -62,7 +62,7 @@ class HomeController extends Controller
     {
         $user = User::findOrFail($id);
         $this->validate($request,[
-            'name' => 'required|max:255',
+            'name' => 'required|max:50',
             'email' => 'required|email|unique:users,email,'.$user->id,
             'nickname' => 'required'
         ]);
