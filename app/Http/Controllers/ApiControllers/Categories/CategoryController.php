@@ -4,10 +4,11 @@ namespace App\Http\Controllers\ApiControllers\Categories;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\PostsResource;
 use App\Http\Controllers\Controller;
 use App\Category;
 use App\Post;
-
+use DB;
 class CategoryController extends Controller
 {
     /**
@@ -17,8 +18,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('posts')->withCount('posts')->get();
+        $categories = Category::with(['posts' => function($q){
+            $q->with(['users', 'likes_dislikes', 'images' => function($query){
+                $query->where('isSet', 1);
+            }])->withCount(['comments'])->orderBy('created_at', 'desc');
+        }])->withCount(['posts'])->get();
         return CategoriesResource::collection($categories);
+        // return response()->json(['categories'=>$categories);
     }
 
     /**
@@ -39,7 +45,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category;
+        $category->category_name = $request->category_name;
+        $category->category_slug = str_slug($request->category_name,'-').time();
+        $category->save();
+        return $this->show($category->category_slug);
     }
 
     /**
@@ -48,9 +58,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug, $id)
+    public function show($slug)
     {
-        return new CategoriesResource(Category::where(['category_slug' => $slug, 'id' => $id])->with('posts')->first());
+        return new CategoriesResource(Category::where(['category_slug' => $slug])
+            ->with(['posts'=>function($q){
+                $q->withCount('comments')->with(['users','images' => function($query){
+                    $query->where('isSet', 1);
+                }]);
+        }])->withCount('posts')->first());
     }
 
     /**
@@ -61,7 +76,6 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -73,7 +87,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->category_name = $request->category_name;
+        $category->category_slug = str_slug($category->category_name, '-').time();
+        $category->update();
+        return response()->json($category);
+
     }
 
     /**
@@ -84,6 +103,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category =  Category::findOrFail($id);
+        $category->delete();
+        return response()->json(['message'=>'Category has been successfully removed from database']);
     }
 }

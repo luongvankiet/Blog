@@ -38,6 +38,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Post','user_id','id');
     }
 
+    
+    public function likes_dislikes()
+    {
+        return $this->hasMany('App\LikesDislikes', 'post_id', 'id');
+    }
+
     public function images()
     {
         return $this->hasMany('App\Image', 'user_id', 'id');

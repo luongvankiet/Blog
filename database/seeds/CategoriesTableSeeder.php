@@ -13,6 +13,6 @@ class CategoriesTableSeeder extends Seeder
     {
         factory(App\Category::class, 5)->create()->each(function($u) {
 		   $u->posts()->save(factory(App\Post::class)->make());
-		});
+		});	
     }
 }

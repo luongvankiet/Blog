@@ -41,6 +41,11 @@ class Post extends Model
         return $this->hasMany('App\Comment', 'post_id', 'id');
     }
 
+    public function likes_dislikes()
+    {
+        return $this->hasMany('App\LikeDislike', 'post_id', 'id');
+    }
+
     public function validate($request)
     {
         $validator = Validator::make($request, $this->rules);

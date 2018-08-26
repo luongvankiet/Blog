@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use DB;
 use Carbon\Carbon;
 use App\User;
+use App\Role;
 use Validator;
 use Hash;
 
@@ -41,6 +42,8 @@ class AuthController extends Controller
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password'))
         ]);
+        $role = Role::find(2);
+        $user->roles()->sync($role->id);
         return $this->login($request);
     }
 
@@ -51,6 +54,8 @@ class AuthController extends Controller
      */
     public function me()
     {
+        auth()->user()->roles;
+        auth()->user()->images->where('isSet',1);
         return response()->json(auth()->user());
     }
 
@@ -97,5 +102,4 @@ class AuthController extends Controller
         return auth()->payload();
     }
 
-    
 }

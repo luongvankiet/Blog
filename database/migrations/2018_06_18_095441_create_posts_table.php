@@ -18,7 +18,8 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->mediumText('content');
             $table->string('slug');
-            $table->integer('rate')->default(0);
+            $table->integer('like')->default(0);
+            $table->integer('dislike')->default(0);
             $table->boolean('active')->default(true);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')

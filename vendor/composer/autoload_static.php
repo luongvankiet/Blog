@@ -121,8 +121,13 @@ class ComposerStaticInite7f1d6f954d5aede0b1b7972bc1f1178
             'Cron\\' => 5,
             'Carbon\\' => 7,
         ),
+        'B' => 
+        array (
+            'Barryvdh\\Cors\\' => 14,
+        ),
         'A' => 
         array (
+            'Asm89\\Stack\\' => 12,
             'App\\' => 4,
         ),
     );
@@ -330,6 +335,14 @@ class ComposerStaticInite7f1d6f954d5aede0b1b7972bc1f1178
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'Barryvdh\\Cors\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/barryvdh/laravel-cors/src',
+        ),
+        'Asm89\\Stack\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -389,8 +402,10 @@ class ComposerStaticInite7f1d6f954d5aede0b1b7972bc1f1178
         'App\\Http\\Controllers\\ApiControllers\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/Auth/AuthController.php',
         'App\\Http\\Controllers\\ApiControllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\ApiControllers\\Categories\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/Categories/CategoryController.php',
+        'App\\Http\\Controllers\\ApiControllers\\Comments\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/Comments/CommentController.php',
         'App\\Http\\Controllers\\ApiControllers\\Images\\ImageController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/Images/ImageController.php',
         'App\\Http\\Controllers\\ApiControllers\\Posts\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/Posts/PostController.php',
+        'App\\Http\\Controllers\\ApiControllers\\Users\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiControllers/Users/UserController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -411,12 +426,14 @@ class ComposerStaticInite7f1d6f954d5aede0b1b7972bc1f1178
         'App\\Http\\Requests\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LoginRequest.php',
         'App\\Http\\Requests\\RegisterRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegisterRequest.php',
         'App\\Http\\Requests\\ResetPasswordRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ResetPasswordRequest.php',
+        'App\\Http\\Requests\\post\\CreatePostRequest' => __DIR__ . '/../..' . '/app/Http/Requests/post/CreatePostRequest.php',
         'App\\Http\\Resources\\CategoriesResource' => __DIR__ . '/../..' . '/app/Http/Resources/CategoriesResource.php',
         'App\\Http\\Resources\\ImagesResource' => __DIR__ . '/../..' . '/app/Http/Resources/ImagesResource.php',
         'App\\Http\\Resources\\PostsCollection' => __DIR__ . '/../..' . '/app/Http/Resources/PostsCollection.php',
         'App\\Http\\Resources\\PostsResource' => __DIR__ . '/../..' . '/app/Http/Resources/PostsResource.php',
         'App\\Http\\Resources\\UsersResource' => __DIR__ . '/../..' . '/app/Http/Resources/UsersResource.php',
         'App\\Image' => __DIR__ . '/../..' . '/app/Image.php',
+        'App\\LikeDislike' => __DIR__ . '/../..' . '/app/LikeDislike.php',
         'App\\Mail\\ResetPasswordMail' => __DIR__ . '/../..' . '/app/Mail/ResetPasswordMail.php',
         'App\\Permission' => __DIR__ . '/../..' . '/app/Permission.php',
         'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
@@ -427,6 +444,12 @@ class ComposerStaticInite7f1d6f954d5aede0b1b7972bc1f1178
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
+        'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
+        'Barryvdh\\Cors\\HandleCors' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/HandleCors.php',
+        'Barryvdh\\Cors\\HandlePreflight' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/HandlePreflight.php',
+        'Barryvdh\\Cors\\LumenServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/LumenServiceProvider.php',
+        'Barryvdh\\Cors\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/ServiceProvider.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
